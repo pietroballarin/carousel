@@ -1,3 +1,5 @@
+const Picture = require('./models/Picture')
+
 require("dotenv/config");
 
 require("./db");
@@ -8,6 +10,23 @@ const app = express();
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
+
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const DB_URL = process.env.MONGODB_URI || "mongodb://localhost/carousel";
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 },
+    saveUninitialized: false,
+    resave: true,
+    store: MongoStore.create({
+      mongoUrl: DB_URL
+    })
+  })
+)
+
 
 // default value for title local
 const projectName = "carousel";
