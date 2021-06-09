@@ -15,18 +15,16 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const DB_URL = process.env.MONGODB_URI || "mongodb://localhost/carousel";
 
+const cors = require('cors');
+ 
+// ...
+ 
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 },
-    saveUninitialized: false,
-    resave: true,
-    store: MongoStore.create({
-      mongoUrl: DB_URL
-    })
+  cors({
+    credentials: true,
+    origin: ['http://localhost:3000'] // <== this will be the URL of our React app (it will be running on port 3000)
   })
-)
-
+);
 
 // default value for title local
 const projectName = "carousel";
@@ -41,6 +39,8 @@ app.use("/", index);
 const pictures = require("./routes/pictures");
 app.use("/pictures", pictures);
 
+const text = require("./routes/text");
+app.use("/api/text", text);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
