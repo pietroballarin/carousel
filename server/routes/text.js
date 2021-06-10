@@ -2,9 +2,11 @@ const router = require('express').Router();
 const Text = require('../models/Text');
 
 router.post('/addText', (req, res, next) => {
-    const { title } = req.body;
+    console.log(req.body)
+    const { title, description } = req.body;
     Text.create({
         title: title,
+        description: description
     })
     .then(uploadedTitle => {
         console.log(uploadedTitle)
