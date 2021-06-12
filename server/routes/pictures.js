@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const Picture = require('../models/Picture');
 const uploader = require('../config/cloudinary');
-const mongoose = require('mongoose');
 
-router.post('/addPicture', uploader.single('imgUrl'), (req, res, next) => {
+
+router.post('/', uploader.single('imgUrl'), (req, res, next) => {
+    console.log(req.file)
+    console.log(req.body)
     const { title } = req.body;
     Picture.create({
         title: title,

@@ -37,7 +37,7 @@ const index = require("./routes/index");
 app.use("/", index);
 
 const pictures = require("./routes/pictures");
-app.use("/pictures", pictures);
+app.use("/api/pictures", pictures);
 
 const text = require("./routes/text");
 app.use("/api/text", text);
