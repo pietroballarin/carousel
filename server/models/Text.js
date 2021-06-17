@@ -4,6 +4,7 @@ const textSchema = new Schema(
     {
      title: String,
      description: String
+     
     }
 );
 

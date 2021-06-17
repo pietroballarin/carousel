@@ -6,7 +6,8 @@ const pictureSchema = new Schema(
         image : {
             imgUrl: String,
             cloudinaryId: String
-        }
+        },
+        description: String
     },
     { timestamps: true }
 );
